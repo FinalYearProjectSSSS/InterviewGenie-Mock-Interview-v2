@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
-import { ReactNode } from "react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ReactNode } from "react";
 
 import { isAuthenticated } from "@/lib/actions/auth.action";
 
@@ -11,12 +11,13 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="root-layout">
-      <nav>
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="MockMate Logo" width={38} height={32} />
-          <h2 className="text-primary-100">PrepWise</h2>
-        </Link>
-      </nav>
+<div className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-pink-200/50 shadow-lg">
+  <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+    Interview Gene
+  </h1>
+</div>
+
+
 
       {children}
     </div>
