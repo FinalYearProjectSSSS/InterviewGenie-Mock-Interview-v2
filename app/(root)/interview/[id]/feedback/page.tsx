@@ -23,20 +23,20 @@ const Feedback = async ({ params }: RouteParams) => {
   });
 
   return (
-    <section className="section-feedback">
+    <section className="section-feedback bg-background text-foreground">
       <div className="flex flex-row justify-center">
-        <h1 className="text-4xl font-semibold">
+        <h1 className="text-4xl font-semibold text-foreground">
           Feedback on the Interview -{" "}
-          <span className="capitalize">{interview.role}</span> Interview
+          <span className="capitalize text-primary-200">{interview.role}</span> Interview
         </h1>
       </div>
 
-      <div className="flex flex-row justify-center ">
-        <div className="flex flex-row gap-5">
+      <div className="flex flex-row justify-center">
+        <div className="flex flex-row gap-5 flex-wrap justify-center">
           {/* Overall Impression */}
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row gap-2 items-center bg-card px-4 py-2 rounded-xl border border-border shadow-sm">
             <Image src="/star.svg" width={22} height={22} alt="star" />
-            <p>
+            <p className="text-foreground">
               Overall Impression:{" "}
               <span className="text-primary-200 font-bold">
                 {feedback?.totalScore}
@@ -46,9 +46,9 @@ const Feedback = async ({ params }: RouteParams) => {
           </div>
 
           {/* Date */}
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 items-center bg-card px-4 py-2 rounded-xl border border-border shadow-sm">
             <Image src="/calendar.svg" width={22} height={22} alt="calendar" />
-            <p>
+            <p className="text-foreground">
               {feedback?.createdAt
                 ? dayjs(feedback.createdAt).format("MMM D, YYYY h:mm A")
                 : "N/A"}
@@ -57,37 +57,42 @@ const Feedback = async ({ params }: RouteParams) => {
         </div>
       </div>
 
-      <hr />
+      <hr className="border-border" />
 
-      <p>{feedback?.finalAssessment}</p>
+      <div className="bg-card p-6 rounded-2xl border border-border shadow-sm">
+        <p className="text-foreground leading-relaxed">{feedback?.finalAssessment}</p>
+      </div>
 
       {/* Interview Breakdown */}
       <div className="flex flex-col gap-4">
-        <h2>Breakdown of the Interview:</h2>
-        {feedback?.categoryScores?.map((category, index) => (
-          <div key={index}>
-            <p className="font-bold">
-              {index + 1}. {category.name} ({category.score}/100)
-            </p>
-            <p>{category.comment}</p>
-          </div>
-        ))}
+        <h2 className="text-foreground">Breakdown of the Interview:</h2>
+        <div className="space-y-4">
+          {feedback?.categoryScores?.map((category, index) => (
+            <div key={index} className="bg-card p-5 rounded-xl border border-border shadow-sm hover:border-primary-200/30 transition-colors">
+              <p className="font-bold text-foreground mb-2">
+                {index + 1}. {category.name}{" "}
+                <span className="text-primary-200">({category.score}/100)</span>
+              </p>
+              <p className="text-foreground/80">{category.comment}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <h3>Strengths</h3>
-        <ul>
+      <div className="flex flex-col gap-3 bg-card p-6 rounded-2xl border border-border shadow-sm">
+        <h3 className="text-foreground">Strengths</h3>
+        <ul className="space-y-2">
           {feedback?.strengths?.map((strength, index) => (
-            <li key={index}>{strength}</li>
+            <li key={index} className="text-foreground/90 ml-4">{strength}</li>
           ))}
         </ul>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <h3>Areas for Improvement</h3>
-        <ul>
+      <div className="flex flex-col gap-3 bg-card p-6 rounded-2xl border border-border shadow-sm">
+        <h3 className="text-foreground">Areas for Improvement</h3>
+        <ul className="space-y-2">
           {feedback?.areasForImprovement?.map((area, index) => (
-            <li key={index}>{area}</li>
+            <li key={index} className="text-foreground/90 ml-4">{area}</li>
           ))}
         </ul>
       </div>
@@ -106,7 +111,7 @@ const Feedback = async ({ params }: RouteParams) => {
             href={`/interview/${id}`}
             className="flex w-full justify-center"
           >
-            <p className="text-sm font-semibold text-black text-center">
+            <p className="text-sm font-semibold text-white text-center">
               Retake Interview
             </p>
           </Link>
